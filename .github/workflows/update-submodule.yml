@@ -16,7 +16,10 @@ jobs:
 
       - name: Update submodule to latest
         run: |
+          git submodule sync --recursive
+          git submodule update --init --recursive
           git submodule update --remote --recursive
+          ls -la _posts || true
           git add _posts/commands
           git commit -m "chore: update submodule commands to latest" || echo "No changes to commit"
 
