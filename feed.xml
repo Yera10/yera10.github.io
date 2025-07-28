@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://yera10.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://yera10.github.io/" rel="alternate" type="text/html" /><updated>2025-07-29T00:14:58+09:00</updated><id>https://yera10.github.io/feed.xml</id><title type="html">Note</title><subtitle>이범철의 블로그입니다.</subtitle><author><name>Lee Beom Chul</name></author><entry><title type="html">서브모듈 테스트</title><link href="https://yera10.github.io/coding/Test-Sub-Post/" rel="alternate" type="text/html" title="서브모듈 테스트" /><published>2025-07-27T00:00:00+09:00</published><updated>2025-07-27T00:00:00+09:00</updated><id>https://yera10.github.io/coding/Test%20Sub%20Post</id><content type="html" xml:base="https://yera10.github.io/coding/Test-Sub-Post/"><![CDATA[<p><img src="https://yera10.github.io/assets/images/Fu0EiwWaUAAm66M.jpg" alt="cikw" class="img-width-half align-center" /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://yera10.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://yera10.github.io/" rel="alternate" type="text/html" /><updated>2025-07-29T00:34:28+09:00</updated><id>https://yera10.github.io/feed.xml</id><title type="html">Note</title><subtitle>이범철의 블로그입니다.</subtitle><author><name>Lee Beom Chul</name></author><entry><title type="html">서브모듈 테스트</title><link href="https://yera10.github.io/coding/Test-Sub-Post/" rel="alternate" type="text/html" title="서브모듈 테스트" /><published>2025-07-27T00:00:00+09:00</published><updated>2025-07-27T00:00:00+09:00</updated><id>https://yera10.github.io/coding/Test%20Sub%20Post</id><content type="html" xml:base="https://yera10.github.io/coding/Test-Sub-Post/"><![CDATA[<p><img src="https://yera10.github.io/assets/images/Fu0EiwWaUAAm66M.jpg" alt="cikw" class="img-width-half align-center" /></p>
 
 <h1 id="이건-첫번째-레슨">이건 첫번째 레슨</h1>
 
@@ -23,20 +23,6 @@ $x$는 $y$와의 합이 $1$이다.</p>]]></content><author><name>Lee Beom Chul</
 
 <p>$x+y=1$
 $x$는 $y$와의 합이 $1$이다.</p>]]></content><author><name>Lee Beom Chul</name></author><category term="coding" /><category term="test" /><category term="blog" /><summary type="html"><![CDATA[이건 첫번째 레슨]]></summary></entry><entry><title type="html">git 기본 명령어</title><link href="https://yera10.github.io/git/git-basic-commands/" rel="alternate" type="text/html" title="git 기본 명령어" /><published>2024-09-18T00:00:00+09:00</published><updated>2024-09-18T00:00:00+09:00</updated><id>https://yera10.github.io/git/git%20basic%20commands</id><content type="html" xml:base="https://yera10.github.io/git/git-basic-commands/"><![CDATA[<h3 id="git-상태-확인하기">git 상태 확인하기</h3>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git status <span class="nt">-s</span>
-</code></pre></div></div>
-
-<h3 id="stage에-올리기">stage에 올리기</h3>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone <span class="o">{</span>File_Path<span class="o">}</span>
-</code></pre></div></div>
-
-<h3 id="commit-하기">commit 하기</h3>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git commit <span class="nt">-m</span> <span class="s2">"커밋메세지"</span>
-</code></pre></div></div>
-
-<h3 id="push-하기">push 하기</h3>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git push
-</code></pre></div></div>]]></content><author><name>Lee Beom Chul</name></author><category term="git" /><category term="test" /><category term="blog" /><summary type="html"><![CDATA[git 상태 확인하기 git status -s]]></summary></entry><entry><title type="html">git 기본 명령어</title><link href="https://yera10.github.io/git/git-basic-commands/" rel="alternate" type="text/html" title="git 기본 명령어" /><published>2024-09-18T00:00:00+09:00</published><updated>2024-09-18T00:00:00+09:00</updated><id>https://yera10.github.io/git/git%20basic%20commands</id><content type="html" xml:base="https://yera10.github.io/git/git-basic-commands/"><![CDATA[<h3 id="git-상태-확인하기">git 상태 확인하기</h3>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git status <span class="nt">-s</span>
 </code></pre></div></div>
 
