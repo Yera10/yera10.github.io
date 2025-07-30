@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://yera10.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://yera10.github.io/" rel="alternate" type="text/html" /><updated>2025-07-30T23:14:17+09:00</updated><id>https://yera10.github.io/feed.xml</id><title type="html">Note</title><subtitle>이범철의 블로그입니다.</subtitle><author><name>Lee Beom Chul</name></author><entry><title type="html">서브모듈 테스트</title><link href="https://yera10.github.io/coding/Test-Sub-Post/" rel="alternate" type="text/html" title="서브모듈 테스트" /><published>2025-07-27T00:00:00+09:00</published><updated>2025-07-27T00:00:00+09:00</updated><id>https://yera10.github.io/coding/Test%20Sub%20Post</id><content type="html" xml:base="https://yera10.github.io/coding/Test-Sub-Post/"><![CDATA[<p><img src="https://yera10.github.io/assets/images/Fu0EiwWaUAAm66M.jpg" alt="cikw" class="img-width-half align-center" /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://yera10.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://yera10.github.io/" rel="alternate" type="text/html" /><updated>2025-07-30T23:17:39+09:00</updated><id>https://yera10.github.io/feed.xml</id><title type="html">Note</title><subtitle>이범철의 블로그입니다.</subtitle><author><name>Lee Beom Chul</name></author><entry><title type="html">서브모듈 테스트</title><link href="https://yera10.github.io/coding/Test-Sub-Post/" rel="alternate" type="text/html" title="서브모듈 테스트" /><published>2025-07-27T00:00:00+09:00</published><updated>2025-07-27T00:00:00+09:00</updated><id>https://yera10.github.io/coding/Test%20Sub%20Post</id><content type="html" xml:base="https://yera10.github.io/coding/Test-Sub-Post/"><![CDATA[<p><img src="https://yera10.github.io/assets/images/Fu0EiwWaUAAm66M.jpg" alt="cikw" class="img-width-half align-center" /></p>
 
 <h1 id="이건-첫번째-레슨">이건 첫번째 레슨</h1>
 
@@ -36,4 +36,114 @@ $x$는 $y$와의 합이 $1$이다.</p>]]></content><author><name>Lee Beom Chul</
 
 <h3 id="push-하기">push 하기</h3>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git push
-</code></pre></div></div>]]></content><author><name>Lee Beom Chul</name></author><category term="git" /><category term="test" /><category term="blog" /><summary type="html"><![CDATA[git 상태 확인하기 git status -s]]></summary></entry></feed>
+</code></pre></div></div>]]></content><author><name>Lee Beom Chul</name></author><category term="git" /><category term="test" /><category term="blog" /><summary type="html"><![CDATA[git 상태 확인하기 git status -s]]></summary></entry><entry><title type="html">git clone 관련</title><link href="https://yera10.github.io/git/git-clone/" rel="alternate" type="text/html" title="git clone 관련" /><published>2024-09-18T00:00:00+09:00</published><updated>2024-09-18T00:00:00+09:00</updated><id>https://yera10.github.io/git/git%20clone</id><content type="html" xml:base="https://yera10.github.io/git/git-clone/"><![CDATA[<h3 id="클론">클론</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone <span class="o">{</span>REPO_URL<span class="o">}</span> <span class="o">{</span>DIR_생략가능<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="클론-시-인증하기">클론 시 인증하기</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Username <span class="k">for</span> <span class="s1">'https://github.com'</span>: <span class="o">{</span>사용자명 입력하기<span class="o">}</span>
+Password <span class="k">for</span> <span class="s1">'https://NAME@github.com'</span>: <span class="o">{</span>토큰 붙여넣기<span class="o">}</span>
+</code></pre></div></div>
+<ul>
+  <li>토큰발급방법: github 로그인 &gt; Settings &gt; Developer settings &gt; Personal access tokens &gt; Generate New Token &gt; 필요항목 입력 후 Generate Token <a href="https://velog.io/@rxdryd/git-clone-%EC%98%A4%EB%A5%98">[참고]</a></li>
+</ul>]]></content><author><name>Lee Beom Chul</name></author><category term="git" /><category term="test" /><category term="blog" /><summary type="html"><![CDATA[클론 git clone {REPO_URL} {DIR_생략가능}]]></summary></entry><entry><title type="html">git cedential 관련</title><link href="https://yera10.github.io/git/git-credential/" rel="alternate" type="text/html" title="git cedential 관련" /><published>2024-09-18T00:00:00+09:00</published><updated>2024-09-18T00:00:00+09:00</updated><id>https://yera10.github.io/git/git%20credential</id><content type="html" xml:base="https://yera10.github.io/git/git-credential/"><![CDATA[<h3 id="credential-정보를-반영구-저장">Credential 정보를 반영구 저장</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config credential.helper store
+</code></pre></div></div>
+<p><a href="https://pinedance.github.io/blog/2019/05/29/Git-Credential">[참고]</a></p>
+
+<h3 id="모든-설정값-확인">모든 설정값 확인</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--list</span>
+</code></pre></div></div>]]></content><author><name>Lee Beom Chul</name></author><category term="git" /><category term="test" /><category term="blog" /><summary type="html"><![CDATA[Credential 정보를 반영구 저장 git config credential.helper store [참고]]]></summary></entry><entry><title type="html">git 초기설정</title><link href="https://yera10.github.io/git/git_Initial_setup/" rel="alternate" type="text/html" title="git 초기설정" /><published>2024-09-18T00:00:00+09:00</published><updated>2024-09-18T00:00:00+09:00</updated><id>https://yera10.github.io/git/git_Initial_setup</id><content type="html" xml:base="https://yera10.github.io/git/git_Initial_setup/"><![CDATA[<h3 id="모든-설정값-확인">모든 설정값 확인</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--list</span>
+</code></pre></div></div>
+<p>특정값 확인</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config user.name
+</code></pre></div></div>
+<h3 id="모든-설정값과-해당-위치-확인">모든 설정값과 해당 위치 확인</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--list</span> <span class="nt">--show-origin</span>
+</code></pre></div></div>
+
+<h3 id="사용자-이름-및-이메일-설정">사용자 이름 및 이메일 설정</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--global</span> user.name <span class="s2">"&lt;사용자ID&gt;"</span>
+git config <span class="nt">--global</span> user.email <span class="o">{</span>이메일<span class="o">}</span>
+</code></pre></div></div>
+<p>* global 옵션을 전달할 경우 한번만 수행해도 된다.</p>
+
+<h3 id="설정값-지우기">설정값 지우기</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--unset</span> user.name
+git config <span class="nt">--unset</span> user.email
+
+git config <span class="nt">--unset</span> <span class="nt">--global</span> user.name
+git config <span class="nt">--unset</span> <span class="nt">--global</span> user.email
+</code></pre></div></div>
+<p>* global로 설정한 경우, global로 지워야 한다.</p>
+
+<h3 id="편집기-설정">편집기 설정</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config global core.editor emacs
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--global</span> core.editor <span class="s2">"'C:/Program Files/Notepad++/notepad++.exe' -multiInst -notabbar -nosessin -noPlugin"</span>
+</code></pre></div></div>
+<p>* Windows 시스템에서 다른 텍스트 편집기를 사용하려면 실행파일의 전체 경로를 지정해야 함.</p>
+
+<h3 id="기본-branch-설정">기본 Branch 설정</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--global</span> init.defaultBranch main
+</code></pre></div></div>]]></content><author><name>Lee Beom Chul</name></author><category term="git" /><category term="test" /><category term="blog" /><summary type="html"><![CDATA[모든 설정값 확인 git config --list 특정값 확인 git config user.name 모든 설정값과 해당 위치 확인 git config --list --show-origin]]></summary></entry><entry><title type="html">git 서브모듈</title><link href="https://yera10.github.io/git/git_submodule/" rel="alternate" type="text/html" title="git 서브모듈" /><published>2024-09-18T00:00:00+09:00</published><updated>2024-09-18T00:00:00+09:00</updated><id>https://yera10.github.io/git/git_submodule</id><content type="html" xml:base="https://yera10.github.io/git/git_submodule/"><![CDATA[<p><a href="https://git-scm.com/book/ko/v2/Git-%EB%8F%84%EA%B5%AC-%EC%84%9C%EB%B8%8C%EB%AA%A8%EB%93%88">ref - git doc</a></p>
+
+<h3 id="서브모듈-추가">서브모듈 추가</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git submodule add <span class="o">{</span>저장소 URL<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="서브모듈-끊기">서브모듈 끊기</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 1. 모듈 deinit</span>
+git submodule deinit <span class="nt">-f</span> <span class="o">{</span>모듈명<span class="o">}</span>
+
+<span class="c"># 2. .git/modules 에서 폴더 삭제</span>
+<span class="nb">rm</span> <span class="nt">-rf</span> .git/modules/<span class="o">{</span>모듈명<span class="o">}</span>
+
+<span class="c"># 3. git에서 해당 폴더를 제거</span>
+git <span class="nb">rm</span> <span class="nt">-f</span> <span class="o">{</span>모듈명<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="서브모듈까지-모두-clone">서브모듈까지 모두 clone</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone <span class="nt">--recursive</span> <span class="o">{</span>저장소 URL<span class="o">}</span>
+</code></pre></div></div>
+<p>또는</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone <span class="o">{</span>저장소 URL<span class="o">}</span>
+git submodule update <span class="nt">--init</span> <span class="nt">--recursive</span>
+</code></pre></div></div>
+
+<h3 id="서브모듈까지-모두-업데이트pull">서브모듈까지 모두 업데이트(pull)</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 모든 서브모듈에 대해 동일한 명령어를 수행하고 싶을 때</span>
+git submodule foreach <span class="o">[</span>명령어]
+<span class="c"># 모든 서브모듈에 대해 git pull</span>
+git submodule foreach git pull origin master
+</code></pre></div></div>
+<p>또는</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git submodule update <span class="nt">--remote</span> <span class="nt">--merge</span>
+</code></pre></div></div>
+
+<h3 id="서브모듈-위치-이동">서브모듈 위치 이동</h3>
+<p>그냥 디렉토리였으면 이동하고 커밋하면 되지만, 서브모듈일때는 아래 명령어만 치면 된다.<br />
+그럼.gitmodules까지 모두 수정해준다.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git <span class="nb">mv</span> <span class="o">{</span>기존모듈경로<span class="o">}</span> <span class="o">{</span>새로운모듈경로<span class="o">}</span>
+</code></pre></div></div>]]></content><author><name>Lee Beom Chul</name></author><category term="git" /><category term="test" /><category term="blog" /><summary type="html"><![CDATA[ref - git doc]]></summary></entry><entry><title type="html">git commit 취소</title><link href="https://yera10.github.io/git/git-cancel/" rel="alternate" type="text/html" title="git commit 취소" /><published>2023-12-12T00:00:00+09:00</published><updated>2023-12-12T00:00:00+09:00</updated><id>https://yera10.github.io/git/git%20cancel</id><content type="html" xml:base="https://yera10.github.io/git/git-cancel/"><![CDATA[<h3 id="commit-취소">commit 취소</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 꺽쇠 수만큼 전으로 돌아감</span>
+git reset HEAD^
+git reset HEAD^^
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 숫자만큼 전으로 돌아감</span>
+git reset HEAD~1
+git reset HEAD~2
+</code></pre></div></div>
+
+<h3 id="commit-취소---push-했을-때">commit 취소 - push 했을 때</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git reset HEAD^
+
+<span class="c"># 원하는 시점으로 되돌리기</span>
+git reflog
+git reset <span class="o">{</span>commit <span class="nb">id</span><span class="o">}</span>
+
+<span class="c"># 강제 푸시</span>
+git push origin <span class="o">{</span>branch name<span class="o">}</span> <span class="nt">-f</span>
+</code></pre></div></div>]]></content><author><name>Lee Beom Chul</name></author><category term="git" /><category term="test" /><category term="blog" /><summary type="html"><![CDATA[commit 취소]]></summary></entry></feed>

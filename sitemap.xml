@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>https://yera10.github.io/git/git-cancel/</loc>
+<lastmod>2023-12-12T00:00:00+09:00</lastmod>
+</url>
+<url>
 <loc>https://yera10.github.io/git/git-basic-commands/</loc>
+<lastmod>2024-09-18T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>https://yera10.github.io/git/git-clone/</loc>
+<lastmod>2024-09-18T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>https://yera10.github.io/git/git-credential/</loc>
+<lastmod>2024-09-18T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>https://yera10.github.io/git/git_Initial_setup/</loc>
+<lastmod>2024-09-18T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>https://yera10.github.io/git/git_submodule/</loc>
 <lastmod>2024-09-18T00:00:00+09:00</lastmod>
 </url>
 <url>
@@ -28,7 +48,10 @@
 <loc>https://yera10.github.io/year-archive/</loc>
 </url>
 <url>
+<loc>https://yera10.github.io/page2/</loc>
+</url>
+<url>
 <loc>https://yera10.github.io/google12d551b6d8d58a3c.html</loc>
-<lastmod>2025-07-30T23:13:54+09:00</lastmod>
+<lastmod>2025-07-30T23:17:19+09:00</lastmod>
 </url>
 </urlset>

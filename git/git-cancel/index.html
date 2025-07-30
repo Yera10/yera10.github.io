@@ -10,8 +10,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>서브모듈 테스트 | Note</title>
-<meta name="description" content="">
+<!-- begin _includes/seo.html --><title>git commit 취소 | Note</title>
+<meta name="description" content="commit 취소">
 
 
   <meta name="author" content="Lee Beom Chul">
@@ -23,30 +23,30 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="Note">
-<meta property="og:title" content="서브모듈 테스트">
-<meta property="og:url" content="https://yera10.github.io/coding/Test-Sub-Post/">
+<meta property="og:title" content="git commit 취소">
+<meta property="og:url" content="https://yera10.github.io/git/git-cancel/">
 
 
-  <meta property="og:description" content="">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2025-07-27T00:00:00+09:00">
+  <meta property="og:description" content="commit 취소">
 
 
 
 
 
-  
+
+
+  <meta property="article:published_time" content="2023-12-12T00:00:00+09:00">
+
+
+
+
 
   
 
+  
 
-<link rel="canonical" href="https://yera10.github.io/coding/Test-Sub-Post/">
+
+<link rel="canonical" href="https://yera10.github.io/git/git-cancel/">
 
 
 
@@ -84,29 +84,6 @@
 
 <!-- insert favicons. use https://realfavicongenerator.net/ -->
 
-
-    <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        TeX: {
-          equationNumbers: {
-            autoNumber: "AMS"
-          }
-        },
-        tex2jax: {
-        inlineMath: [ ['$', '$'] ],
-        displayMath: [ ['$$', '$$'] ],
-        processEscapes: true,
-      }
-    });
-    MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
-          alert("Math Processing Error: "+message[1]);
-        });
-    MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
-          alert("Math Processing Error: "+message[1]);
-        });
-    </script>
-<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
 
 
 <!-- end custom head snippets -->
@@ -326,16 +303,16 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="서브모듈 테스트">
-    <meta itemprop="description" content="">
-    <meta itemprop="datePublished" content="2025-07-27T00:00:00+09:00">
+    <meta itemprop="headline" content="git commit 취소">
+    <meta itemprop="description" content="commit 취소">
+    <meta itemprop="datePublished" content="2023-12-12T00:00:00+09:00">
     
 
     <div class="page__inner-wrap">
       
         <header>
           <h1 id="page-title" class="page__title" itemprop="headline">
-            <a href="https://yera10.github.io/coding/Test-Sub-Post/" itemprop="url">서브모듈 테스트
+            <a href="https://yera10.github.io/git/git-cancel/" itemprop="url">git commit 취소
 </a>
           </h1>
           
@@ -346,7 +323,7 @@
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
         
-        <time datetime="2025-07-27T00:00:00+09:00">2025-07-27</time>
+        <time datetime="2023-12-12T00:00:00+09:00">2023-12-12</time>
       </span>
     
 
@@ -374,24 +351,31 @@
           <aside class="sidebar__right sticky">
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
-              <ul class="toc__menu"><li><a href="#이건-첫번째-레슨">이건 첫번째 레슨</a></li><li><a href="#이건-두번째-레슨">이건 두번째 레슨</a></li><li><a href="#드디어-세번째-레슨">드디어 세번째 레슨</a></li></ul>
+              <ul class="toc__menu"><li><a href="#commit-취소">commit 취소</a></li><li><a href="#commit-취소---push-했을-때">commit 취소 - push 했을 때</a></li></ul>
             </nav>
           </aside>
         
-        <p><img src="https://yera10.github.io/assets/images/Fu0EiwWaUAAm66M.jpg" alt="cikw" class="img-width-half align-center" /></p>
+        <h3 id="commit-취소">commit 취소</h3>
 
-<h1 id="이건-첫번째-레슨">이건 첫번째 레슨</h1>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 꺽쇠 수만큼 전으로 돌아감</span>
+git reset HEAD^
+git reset HEAD^^
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 숫자만큼 전으로 돌아감</span>
+git reset HEAD~1
+git reset HEAD~2
+</code></pre></div></div>
 
-<p>좋은 건 너만 알기</p>
+<h3 id="commit-취소---push-했을-때">commit 취소 - push 했을 때</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git reset HEAD^
 
-<h1 id="이건-두번째-레슨">이건 두번째 레슨</h1>
+<span class="c"># 원하는 시점으로 되돌리기</span>
+git reflog
+git reset <span class="o">{</span>commit <span class="nb">id</span><span class="o">}</span>
 
-<p>슬픔도 너만 갖기</p>
-
-<h1 id="드디어-세번째-레슨">드디어 세번째 레슨</h1>
-
-<p>$x+y=1$
-$x$는 $y$와의 합이 $1$이다.</p>
+<span class="c"># 강제 푸시</span>
+git push origin <span class="o">{</span>branch name<span class="o">}</span> <span class="nt">-f</span>
+</code></pre></div></div>
 
         
       </section>
@@ -407,6 +391,8 @@ $x$는 $y$와의 합이 $1$이다.</p>
   <p class="page__taxonomy">
     <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
     <span itemprop="keywords">
+    
+      <a href="/tags/#blog" class="page__taxonomy-item p-category" rel="tag">blog</a><span class="sep">, </span>
     
       <a href="/tags/#test" class="page__taxonomy-item p-category" rel="tag">test</a>
     
@@ -425,7 +411,7 @@ $x$는 $y$와의 합이 $1$이다.</p>
     <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
     <span itemprop="keywords">
     
-      <a href="/categories/#coding" class="page__taxonomy-item p-category" rel="tag">coding</a>
+      <a href="/categories/#git" class="page__taxonomy-item p-category" rel="tag">git</a>
     
     </span>
   </p>
@@ -433,26 +419,26 @@ $x$는 $y$와의 합이 $1$이다.</p>
 
         
 
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2025-07-27T00:00:00+09:00">2025-07-27</time></p>
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2023-12-12T00:00:00+09:00">2023-12-12</time></p>
 
       </footer>
 
       <section class="page__share">
   <h4 class="page__share-title">공유하기</h4>
 
-  <a href="https://x.com/intent/tweet?text=%EC%84%9C%EB%B8%8C%EB%AA%A8%EB%93%88+%ED%85%8C%EC%8A%A4%ED%8A%B8%20https%3A%2F%2Fyera10.github.io%2Fcoding%2FTest-Sub-Post%2F" class="btn btn--x" aria-label="Share on X" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 X">
+  <a href="https://x.com/intent/tweet?text=git+commit+%EC%B7%A8%EC%86%8C%20https%3A%2F%2Fyera10.github.io%2Fgit%2Fgit-cancel%2F" class="btn btn--x" aria-label="Share on X" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 X">
     <i class="fab fa-fw fa-x-twitter" aria-hidden="true"></i><span> X</span>
   </a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fyera10.github.io%2Fcoding%2FTest-Sub-Post%2F" class="btn btn--facebook" aria-label="Share on Facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook">
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fyera10.github.io%2Fgit%2Fgit-cancel%2F" class="btn btn--facebook" aria-label="Share on Facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook">
     <i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span>
   </a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://yera10.github.io/coding/Test-Sub-Post/" class="btn btn--linkedin" aria-label="Share on LinkedIn" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn">
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://yera10.github.io/git/git-cancel/" class="btn btn--linkedin" aria-label="Share on LinkedIn" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn">
     <i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span>
   </a>
 
-  <a href="https://bsky.app/intent/compose?text=%EC%84%9C%EB%B8%8C%EB%AA%A8%EB%93%88+%ED%85%8C%EC%8A%A4%ED%8A%B8%20https%3A%2F%2Fyera10.github.io%2Fcoding%2FTest-Sub-Post%2F" class="btn btn--bluesky" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Bluesky">
+  <a href="https://bsky.app/intent/compose?text=git+commit+%EC%B7%A8%EC%86%8C%20https%3A%2F%2Fyera10.github.io%2Fgit%2Fgit-cancel%2F" class="btn btn--bluesky" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Bluesky">
     <i class="fab fa-fw fa-bluesky" aria-hidden="true"></i><span> Bluesky</span>
   </a>
 </section>
@@ -461,10 +447,10 @@ $x$는 $y$와의 합이 $1$이다.</p>
       
   <nav class="pagination">
     
-      <a href="/coding/TestPost/" class="pagination--pager" title="Welcome to Jekyll!">이전</a>
+      <a href="#" class="pagination--pager disabled">이전</a>
     
     
-      <a href="#" class="pagination--pager disabled">다음</a>
+      <a href="/git/git-basic-commands/" class="pagination--pager" title="git 기본 명령어">다음</a>
     
   </nav>
 
@@ -481,6 +467,54 @@ $x$는 $y$와의 합이 $1$이다.</p>
   
   <h2 class="page__related-title">참고</h2>
   <div class="grid__wrapper">
+    
+      
+      
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/coding/Test-Sub-Post/" rel="permalink">서브모듈 테스트
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2025-07-27T00:00:00+09:00">2025-07-27</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          최대 1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
     
       
       
@@ -629,57 +663,6 @@ git config user.name
 모든 설정값과 해당 위치 확인
 git config --list --show-origin
 
-</p>
-  </article>
-</div>
-
-    
-      
-      
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/git/git-credential/" rel="permalink">git cedential 관련
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
-        
-        <time datetime="2024-09-18T00:00:00+09:00">2024-09-18</time>
-      </span>
-    
-
-    <span class="page__meta-sep"></span>
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
-        
-          최대 1 분 소요
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">Credential 정보를 반영구 저장
-git config credential.helper store
-
-[참고]
 </p>
   </article>
 </div>
