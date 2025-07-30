@@ -7,6 +7,12 @@ jobs:
   update-submodule:
     runs-on: ubuntu-latest
 
+    env:
+      GIT_AUTHOR_NAME: github-actions
+      GIT_AUTHOR_EMAIL: github-actions@github.com
+      GIT_COMMITTER_NAME: github-actions
+      GIT_COMMITTER_EMAIL: github-actions@github.com
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -20,15 +26,9 @@ jobs:
           git submodule update --init --recursive
           git submodule update --remote --recursive
           ls -la _posts || true
-          git add _posts/commands
-          git commit -m "chore: update submodule commands to latest" || echo "No changes to commit"
-
+          git add .
+          git commit -m "chore: update submodules to latest" || echo "No changes to commit"
 
       - name: Push changes
         run: |
           git push origin master
-        env:
-          GIT_AUTHOR_NAME: github-actions
-          GIT_AUTHOR_EMAIL: github-actions@github.com
-          GIT_COMMITTER_NAME: github-actions
-          GIT_COMMITTER_EMAIL: github-actions@github.com
