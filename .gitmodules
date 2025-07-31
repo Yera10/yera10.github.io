@@ -1,3 +1,6 @@
 [submodule "_posts/commands"]
 	path = _posts/commands
 	url = https://github.com/Yera10/commands.git
+[submodule "_posts/algorithm-note"]
+	path = _posts/algorithm-note
+	url = https://github.com/Yera10/algorithm-note.git
