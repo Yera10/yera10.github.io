@@ -4,3 +4,6 @@
 [submodule "_posts/algorithm-note"]
 	path = _posts/algorithm-note
 	url = https://github.com/Yera10/algorithm-note.git
+[submodule "blog_posting"]
+	path = blog_posting
+	url = https://github.com/Yera10/blog_posting.git
