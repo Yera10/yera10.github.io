@@ -15,7 +15,7 @@
 minimal_mistakes_skin    : "dirt" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 # Site Settings
-locale                   : "ko-KR"
+locale                   : "us"
 rtl                      : # true, false (default) # turns direction of the page into right to left for RTL languages
 title                    : "Note"
 title_separator          : "|"
@@ -113,10 +113,10 @@ analytics:
 
 # Site Author
 author:
-  name             : "Lee Beom Chul"
+  # name             : "Lee Beom Chul"
   avatar           : "/assets/images/Fu0EiwWaUAAm66M.jpg"
-  bio              : "이범철의 공부 정리 블로그입니다."
-  location         : "South Korea"
+  bio              : ""
+  location         : 
   email            :
   links:
     - label: "Email"
@@ -124,7 +124,7 @@ author:
       # url: "mailto:your.name@email.com"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/Yera10"
+      # url: "https://github.com/Yera10"
     - label: "Website"
       icon: "fas fa-fw fa-link"
       # url: "https://your-website.com"
@@ -334,5 +334,6 @@ defaults:
       toc_sticky: true
       sidebar:
         nav: "counts"
+      sidebar_main: true
 
 date_format: "%Y-%m-%d"

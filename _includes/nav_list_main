@@ -1,0 +1,39 @@
+<!-- sum = 사이트의 모든 포스트 개수 -->
+{% assign sum = site.posts | size %}
+
+<nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">{{ site.data.ui-text[site.locale].menu_label }}</label>
+  <ul class="nav__items" id="category_tag_menu">
+      <!--Total Posts-->
+      <li>
+            📂 <span style="font-family:'Cafe24Oneprettynight';">Total Posts ({{ sum }})</span>
+      </li>
+
+      <!-- categories_by_count = 카테고리 | 포스트 수 저장 -->
+      {% assign categories_by_count = "" | split: "" %}
+      {% for category in site.categories %}
+        {% assign cat_name = category[0] %}
+        {% assign post_count = category[1].size %}
+        <!-- 4자리로 패딩 e.g., 7 → "0007", for sorting -->
+        {% assign padded_count = post_count | prepend: "0000" | slice: -4, 4 %}
+        {% assign sort_key = padded_count | append: "|" | append: cat_name | append: "|" | append: post_count %}
+        {% assign categories_by_count = categories_by_count | push: sort_key %}
+        {% endfor %}
+
+      <!-- 포스트 수 기준으로 내림차순 -->
+      {% assign sorted_categories = categories_by_count | sort | reverse %}
+
+      <!-- Category List -->
+      {% for cat_data in sorted_categories %}
+          {% assign cat_info = cat_data | split: "|" %}
+          {% assign cat_name = cat_info[1] %}
+          {% assign cat_count = cat_info[2] %}
+          <li>
+              <a href="/categories/#{{ cat_name | slugify }}" class="">
+              {{ cat_name }} <span class="taxonomy__count">{{ cat_count }}</span>
+              </a>
+          </li>
+      {% endfor %}
+  </ul>
+</nav>

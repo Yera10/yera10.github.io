@@ -1,5 +1,7 @@
+<!-- navigation 변수 가져오기 -->
 {% assign navigation = site.data.navigation[include.nav] %}
 
+<!-- 카테고리 포스트 수 MAX 값 -->
 {% assign categories_max = 0 %}
 {% for category in site.categories %}
   {% if category[1].size > categories_max %}
@@ -7,6 +9,7 @@
   {% endif %}
 {% endfor %}
 
+<!-- TAG 포스트 수 MAX 값 -->
 {% assign tags_max = 0 %}
 {% for tag in site.tags %}
   {% if tag[1].size > tags_max %}
@@ -15,12 +18,17 @@
 {% endfor %}
 
 <nav class="nav__list">
+  <!-- 첫 카테고리 활성화 됐을 때 -->
   {% if navigation[0].use %}
+  <!-- 접기/펼치기 토글 버튼 -->
   <input id="ac-toc" name="accordion-toc" type="checkbox" />
   <label for="ac-toc">{{ site.data.ui-text[site.locale].menu_label | default: "Toggle Menu" }}</label>
+
   <ul class="nav__items">
+    <!-- 섹션 제목 -->
     <span class="nav__sub-title">{{ navigation[0].title }}</span>
     <li>
+      <!-- 카테고리 리스트 : 포스트 많은 순 정렬 -->
       {% for i in (1..categories_max) reversed %}
         {% for category in site.categories %}
           {% if category[1].size == i %}
