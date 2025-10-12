@@ -21,8 +21,9 @@
 {% include analytics.html %}
 {% include /comments-providers/scripts.html %}
 
+<!-- _config.yml의 after_footer_scripts 읽어옴 -->
 {% if site.after_footer_scripts %}
   {% for script in site.after_footer_scripts %}
     <script src="{{ script | relative_url }}"></script>
   {% endfor %}
-{% endif %}
+{% endif %} 

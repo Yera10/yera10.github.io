@@ -335,3 +335,11 @@ defaults:
       sidebar_main: true
 
 date_format: "%Y-%m-%d"
+
+# Custom CSS
+head_scripts:
+  - /assets/css/custom.css
+
+# Custom JavaScript
+after_footer_scripts:
+  - /assets/js/custom.js

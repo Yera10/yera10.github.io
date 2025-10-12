@@ -1,0 +1,22 @@
+/* 사이드바 카테고리 커스텀 스타일*/
+.nav__sub-items {
+  list-style: none;
+  padding-left: 0;
+}
+
+.nav__sub-items li {
+  padding-left: 1em;
+}
+
+.nav__sub-title {
+  display: inline-block;
+  position: relative;
+  padding-left: 0.5em;
+}
+
+.toggle-icon {
+  display: inline-block;
+  transition: transform 0.2s ease;
+  font-size: 0.8em;
+  margin-right: 0.3em;
+}
