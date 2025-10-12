@@ -5,35 +5,137 @@
   <input id="ac-toc" name="accordion-toc" type="checkbox" />
   <label for="ac-toc">{{ site.data.ui-text[site.locale].menu_label }}</label>
   <ul class="nav__items" id="category_tag_menu">
-      <!--Total Posts-->
-      <li>
-        <span class="nav__sub-title">📂 Total Posts <span class="taxonomy__count">{{ sum }}</span></span>
-      </li>
+    <!--Total Posts-->
+    <li>
+      <span class="nav__sub-title">Total Posts <span class="taxonomy__count">{{ sum }}</span></span>
+    </li>
 
-      <!-- categories_by_count = 카테고리 | 포스트 수 저장 -->
-      {% assign categories_by_count = "" | split: "" %}
-      {% for category in site.categories %}
-        {% assign cat_name = category[0] %}
-        {% assign post_count = category[1].size %}
-        <!-- 4자리로 패딩 e.g., 7 → "0007", for sorting -->
-        {% assign padded_count = post_count | prepend: "0000" | slice: -4, 4 %}
-        {% assign sort_key = padded_count | append: "|" | append: cat_name | append: "|" | append: post_count %}
-        {% assign categories_by_count = categories_by_count | push: sort_key %}
-        {% endfor %}
+    {% assign parent_categories = "" | split: "" %}   <!-- 부모 카테고리 리스트 -->
+    {% assign category_tree = "" | split: "" %}   <!-- '부모|자식|포스트수' 리스트 -->
 
-      <!-- 포스트 수 기준으로 내림차순 -->
-      {% assign sorted_categories = categories_by_count | sort | reverse %}
+    <!-- 1. 부모 카테고리, 카테고리 정보 저장 -->
+    {% for category in site.categories %}
+      {% assign cat_name = category[0] %}
+      {% assign post_count = category[1].size %}
 
-      <!-- Category List -->
-      {% for cat_data in sorted_categories %}
-          {% assign cat_info = cat_data | split: "|" %}
-          {% assign cat_name = cat_info[1] %}
-          {% assign cat_count = cat_info[2] %}
-          <li>
-              <a href="/categories/#{{ cat_name | slugify }}" class="">
-              {{ cat_name }} <span class="taxonomy__count">{{ cat_count }}</span>
-              </a>
-          </li>
+      <!-- 카테고리 이름에 '/'가 있으면 부모-자식 구조로 처리 -->
+      {% if cat_name contains '/' %}
+        {% assign cat_parts = cat_name | split: '/' %}
+        {% assign parent = cat_parts[0] %}
+        {% assign child = cat_parts[1] %}
+
+        <!-- 부모 카테고리 추가 -->
+        {% unless parent_categories contains parent %}
+          {% assign parent_categories = parent_categories | push: parent %}
+        {% endunless %}
+
+        <!-- category_tree에 추가 -->
+        {% assign tree_item = parent | append: "|" | append: child | append: "|" | append: post_count %}
+        {% assign category_tree = category_tree | push: tree_item %}
+      {% else %}
+        <!-- '/'가 없으면 부모 카테고리로 -->
+        {% unless parent_categories contains cat_name %}
+          {% assign parent_categories = parent_categories | push: cat_name %}
+        {% endunless %}
+        {% assign tree_item = cat_name | append: "||" | append: post_count %}
+        {% assign category_tree = category_tree | push: tree_item %}
+      {% endif %}
+    {% endfor %}
+
+    <!-- 2. 부모 포스트 계산 및 정렬-->
+    {% assign parent_with_count = "" | split: "" %}
+    {% for parent in parent_categories %}
+      {% assign parent_total = 0 %}
+      {% for tree_item in category_tree %}
+        {% assign parts = tree_item | split: "|" %}
+        {% if parts[0] == parent %}
+          {% assign parent_total = parent_total | plus: parts[2] %}
+        {% endif %}
       {% endfor %}
+      {% assign padded_count = parent_total | prepend: "0000" | slice: -4, 4 %}     <!-- 포스트 수 4자리 패딩 -->
+      {% assign sort_key = padded_count | append: "|" | append: parent | append: "|" | append: parent_total %}
+      {% assign parent_with_count = parent_with_count | push: sort_key %}
+    {% endfor %}
+    {% assign sorted_parents_data = parent_with_count | sort | reverse %}   <!-- 포스트 많은 순 정렬 -->
+
+    <!-- 3. 부모 카테고리 별 렌더링 -->
+    {% for parent_data in sorted_parents_data %}
+      {% assign parent_info = parent_data | split: "|" %}
+      {% assign parent = parent_info[1] %}
+      {% assign parent_total = parent_info[2] %}
+
+      <!-- 부모 카테고리 출력 -->
+      <li>
+        <div class="nav__sub-title" style="cursor: pointer; user-select: none;">
+          <span onclick="toggleCategory('{{ parent | slugify }}')">
+            <span class="toggle-icon" id="icon-{{ parent | slugify }}">▶</span> {{ parent }} <span class="taxonomy__count">{{ parent_total }}</span>
+          </span>
+        </div>
+
+        <!-- 자식 카테고리 리스트 -->
+        <ul class="nav__sub-items" id="cat-{{ parent | slugify }}" style="display: none; margin-left: 1em;">
+          {% assign has_children = false %}
+          {% for tree_item in category_tree %}
+            {% assign parts = tree_item | split: "|" %}
+            {% if parts[0] == parent and parts[1] != "" %}
+              {% assign has_children = true %}
+              <li>
+                <a href="/categories/#{{ parent | append: '/' | append: parts[1] | slugify }}" class="">
+                  {{ parts[1] }} <span class="taxonomy__count">{{ parts[2] }}</span>
+                </a>
+              </li>
+            {% endif %}
+          {% endfor %}
+          
+          <!-- 자식 카테고리가 없는 경우 -->
+          {% unless has_children %}
+            <li>
+              <a href="/categories/#{{ parent | slugify }}" class="">
+                All <span class="taxonomy__count">{{ parent_total }}</span>
+              </a>
+            </li>
+          {% endunless %}
+        </ul>
+      </li>
+    {% endfor %}
   </ul>
 </nav>
+
+<script>
+function toggleCategory(categoryId) {
+  const element = document.getElementById('cat-' + categoryId);
+  const icon = document.getElementById('icon-' + categoryId);
+  
+  if (element.style.display === 'none') {
+    element.style.display = 'block';
+    icon.textContent = '▼';
+  } else {
+    element.style.display = 'none';
+    icon.textContent = '▶';
+  }
+}
+</script>
+
+<style>
+.nav__sub-items {
+  list-style: none;
+  padding-left: 0;
+}
+
+.nav__sub-items li {
+  padding-left: 1em;
+}
+
+.nav__sub-title {
+  display: inline-block;
+  position: relative;
+  padding-left: 0.5em;
+}
+
+.toggle-icon {
+  display: inline-block;
+  transition: transform 0.2s ease;
+  font-size: 0.8em;
+  margin-right: 0.3em;
+}
+</style>
