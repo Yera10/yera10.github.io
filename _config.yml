@@ -343,3 +343,7 @@ head_scripts:
 # Custom JavaScript
 after_footer_scripts:
   - /assets/js/custom.js
+
+# Mermaid 지원 활성화
+mermaid:
+  enable: true
