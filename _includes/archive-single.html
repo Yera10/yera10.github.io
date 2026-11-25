@@ -26,6 +26,27 @@
         <!-- 포스트 밑줄 없앰 -->
       {% endif %}
     </h2>
+    <!-- 카테고리·태그 표시 (홈 최근 글, 연도별 목록 등 list 형태에서만) -->
+    {% if include.type != "grid" %}
+      {% assign item_cats = post.categories %}
+      {% assign item_tags = post.tags %}
+      {% if item_cats.size > 0 or item_tags.size > 0 %}
+        <p class="archive__item-taxonomy">
+          {% for c in item_cats %}
+            {% assign c_parts = c | split: "/" %}
+            {% assign c_parent = c_parts[0] | upcase %}
+            {% assign c_icon = site.data.category_icons[c_parent] | default: site.data.category_icons._default %}
+            <a class="archive__item-category" href="{{ '/categories/' | relative_url }}#{{ c | slugify }}"{% if c_icon %} style="--cat-color: {{ c_icon.color }}"{% endif %}>
+              {% if c_icon %}<i class="fa-fw {{ c_icon.icon }}" aria-hidden="true"></i>{% endif %}
+              {{ c_parts | join: " › " }}
+            </a>
+          {% endfor %}
+          {% for t in item_tags %}
+            <a class="archive__item-tag" href="{{ '/tags/' | relative_url }}#{{ t | slugify }}">#{{ t }}</a>
+          {% endfor %}
+        </p>
+      {% endif %}
+    {% endif %}
     {% include page__meta.html type=include.type %}
     {% if post.excerpt %}<p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | strip_html | truncate: 160 }}</p>{% endif %}
   </article>

@@ -163,3 +163,81 @@ search: false
   opacity: 0.5;
   transition: opacity 0.15s ease;
 }
+
+/* ==========================================================================
+   글 목록(홈 최근 글 등)의 카테고리·태그 표시 (_includes/archive-single.html)
+   ========================================================================== */
+
+.archive__item-taxonomy {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35em 0.6em;
+  margin: 0.35em 0 0.2em;
+  font-family: $sans-serif;
+  font-size: $type-size-6;
+  line-height: 1.4;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+/* 카테고리: 아이콘 색과 같은 톤의 작은 배지 */
+.archive__item-category {
+  --cat-color: #{$muted-text-color};
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  padding: 0.15em 0.65em;
+  border: 1px solid var(--cat-color);
+  border-radius: 999px;
+  color: var(--cat-color) !important;
+  font-weight: bold;
+
+  &:hover {
+    background: rgba(#000, 0.04);
+  }
+}
+
+/* 태그: 흐린 글씨 */
+.archive__item-tag {
+  color: $muted-text-color !important;
+
+  &:hover {
+    color: $text-color !important;
+  }
+}
+
+/* ==========================================================================
+   왼쪽 사이드바 너비: 스크롤바 자리만큼 넓히기
+   - 카테고리를 많이 펼쳐서 스크롤바가 생겨도 사이드바 내용 폭이 줄지 않도록
+     스크롤바 자리를 미리 확보(scrollbar-gutter)하고, 그만큼 사이드바를 넓힘
+   - 본문은 같은 만큼 좁혀서 사이드바와 본문 사이 간격은 그대로 유지
+   ========================================================================== */
+
+$sidebar-scrollbar-room: 12px;
+
+@include breakpoint($large) {
+  .sidebar.sticky {
+    width: calc(#{$right-sidebar-width-narrow} - 1em + #{$sidebar-scrollbar-room});
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+  }
+
+  .sidebar.sticky ~ .page,
+  .sidebar.sticky ~ .archive {
+    width: calc(100% - #{$right-sidebar-width-narrow} - #{$sidebar-scrollbar-room});
+  }
+}
+
+@include breakpoint($x-large) {
+  .sidebar.sticky {
+    width: calc(#{$right-sidebar-width} - 1em + #{$sidebar-scrollbar-room});
+  }
+
+  .sidebar.sticky ~ .page,
+  .sidebar.sticky ~ .archive {
+    width: calc(100% - #{$right-sidebar-width} - #{$sidebar-scrollbar-room});
+  }
+}

@@ -1,45 +1,51 @@
-# 사이드바 상위 카테고리 아이콘
+# 사이드바 상위 카테고리 아이콘 (홈 글 목록의 카테고리 표시에도 사용)
 # - 키: 카테고리 이름 (대문자로 적기. 한글은 그대로)
 # - icon: Font Awesome 무료 아이콘 클래스 (https://fontawesome.com/search?ic=free 에서 검색)
-# - color: 아이콘 색
+# - color: 아이콘 색. 블로그 스킨(dirt)에 맞춘 브라운 계열 3가지 중에서 고르기
+#     진한 브라운  #6b5440  (개발 실무)
+#     중간 브라운  #957450  (공부·데이터)
+#     연한 브라운  #b8976a  (도구·기타)
 # 여기에 없는 카테고리는 _default 아이콘을 사용
 
 _default:
   icon: "fa-regular fa-folder"
-  color: "#9a9384"
+  color: "#b8976a"
 
-TOOLS:
-  icon: "fa-solid fa-screwdriver-wrench"
-  color: "#a87b4f"
+# 개발 실무: 진한 브라운
+DEV:
+  icon: "fa-solid fa-code"
+  color: "#6b5440"
 
 DATABASE:
   icon: "fa-solid fa-database"
-  color: "#4f7cac"
-
-DEV:
-  icon: "fa-solid fa-code"
-  color: "#5b8c5a"
-
-VISUALIZATION:
-  icon: "fa-solid fa-chart-column"
-  color: "#c47a3c"
-
-알고리즘:
-  icon: "fa-solid fa-diagram-project"
-  color: "#3f8f8f"
-
-DEEP-LEARNING:
-  icon: "fa-solid fa-brain"
-  color: "#8a63a8"
-
-BLOG:
-  icon: "fa-solid fa-pen-nib"
-  color: "#b85c7a"
+  color: "#6b5440"
 
 CODING:
   icon: "fa-solid fa-laptop-code"
-  color: "#6b7fa8"
+  color: "#6b5440"
+
+# 공부·데이터: 중간 브라운
+알고리즘:
+  icon: "fa-solid fa-diagram-project"
+  color: "#957450"
+
+DEEP-LEARNING:
+  icon: "fa-solid fa-brain"
+  color: "#957450"
+
+VISUALIZATION:
+  icon: "fa-solid fa-chart-column"
+  color: "#957450"
+
+# 도구·기타: 연한 브라운
+TOOLS:
+  icon: "fa-solid fa-screwdriver-wrench"
+  color: "#b8976a"
+
+BLOG:
+  icon: "fa-solid fa-pen-nib"
+  color: "#b8976a"
 
 ETC:
   icon: "fa-solid fa-box-archive"
-  color: "#8a8a8a"
+  color: "#b8976a"
