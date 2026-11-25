@@ -108,7 +108,7 @@
         <details class="docs-nav__group" data-nav-id="{{ parent_id }}"{% if parent == cur_parent %} open data-current{% endif %}>
           <summary class="nav__sub-title">
             <span class="docs-nav__caret" aria-hidden="true"></span>
-            {% if cat_icon %}<i class="docs-nav__icon fa-fw {{ cat_icon.icon }}" style="color: {{ cat_icon.color }}" aria-hidden="true"></i>{% endif %}
+            {% if cat_icon %}<i class="docs-nav__icon tone-{{ cat_icon.tone | default: 'beige' }} fa-fw {{ cat_icon.icon }}" aria-hidden="true"></i>{% endif %}
             <span class="docs-nav__label">{{ parent }}</span>
             <span class="taxonomy__count">{{ parent_total }}</span>
           </summary>

@@ -1,51 +1,48 @@
-# 사이드바 상위 카테고리 아이콘 (홈 글 목록의 카테고리 표시에도 사용)
+# 상위 카테고리 아이콘 (사이드바, 홈 글 목록의 카테고리 라벨에 사용)
 # - 키: 카테고리 이름 (대문자로 적기. 한글은 그대로)
 # - icon: Font Awesome 무료 아이콘 클래스 (https://fontawesome.com/search?ic=free 에서 검색)
-# - color: 아이콘 색. 블로그 스킨(dirt)에 맞춘 브라운 계열 3가지 중에서 고르기
-#     진한 브라운  #6b5440  (개발 실무)
-#     중간 브라운  #957450  (공부·데이터)
-#     연한 브라운  #b8976a  (도구·기타)
-# 여기에 없는 카테고리는 _default 아이콘을 사용
+# - tone: 색 계열. green / orange / beige 중 하나
+#     green  #6F8F72
+#     orange #F2A65A
+#     beige  #E8E2D8 (아이콘은 배경과 구분되도록 같은 계열의 진한 베이지로 표시)
+#   실제 색 값은 assets/css/main.scss 의 "카테고리 색 팔레트" 에서 바꿀 수 있음
+# 여기에 없는 카테고리는 _default 를 사용
 
 _default:
   icon: "fa-regular fa-folder"
-  color: "#b8976a"
+  tone: beige
 
-# 개발 실무: 진한 브라운
+# 개발 실무
 DEV:
   icon: "fa-solid fa-code"
-  color: "#6b5440"
+  tone: green
 
 DATABASE:
   icon: "fa-solid fa-database"
-  color: "#6b5440"
+  tone: green
 
-CODING:
-  icon: "fa-solid fa-laptop-code"
-  color: "#6b5440"
-
-# 공부·데이터: 중간 브라운
+# 공부·데이터
 알고리즘:
   icon: "fa-solid fa-diagram-project"
-  color: "#957450"
+  tone: orange
 
 DEEP-LEARNING:
   icon: "fa-solid fa-brain"
-  color: "#957450"
+  tone: orange
 
 VISUALIZATION:
   icon: "fa-solid fa-chart-column"
-  color: "#957450"
+  tone: orange
 
-# 도구·기타: 연한 브라운
+# 도구·기타
 TOOLS:
   icon: "fa-solid fa-screwdriver-wrench"
-  color: "#b8976a"
+  tone: beige
 
 BLOG:
   icon: "fa-solid fa-pen-nib"
-  color: "#b8976a"
+  tone: beige
 
 ETC:
   icon: "fa-solid fa-box-archive"
-  color: "#b8976a"
+  tone: beige
