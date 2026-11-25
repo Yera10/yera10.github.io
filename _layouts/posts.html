@@ -1,12 +1,19 @@
 ---
 layout: archive
 ---
+{%- comment -%}
+  연도별 글 목록 (/year-archive/)
+  - 연도마다 상위 카테고리별로 접고 펼칠 수 있는 목록
+  - 접혀 있을 때도 "DATABASE 10 · Oracle 7 · MSSQL 3" 처럼 건수를 볼 수 있음
+  - 카테고리 아이콘·색은 _data/category_icons.yml
+{%- endcomment -%}
 
 {{ content }}
 
+{% assign postsByYear = site.posts | where_exp: "item", "item.hidden != true" | group_by_exp: 'post', 'post.date | date: "%Y"' %}
+
 <ul class="taxonomy__index">
-  {% assign postsInYear = site.posts | where_exp: "item", "item.hidden != true" | group_by_exp: 'post', 'post.date | date: "%Y"' %}
-  {% for year in postsInYear %}
+  {% for year in postsByYear %}
     <li>
       <a href="#{{ year.name }}">
         <strong>{{ year.name }}</strong> <span class="taxonomy__count">{{ year.items | size }}</span>
@@ -15,16 +22,73 @@ layout: archive
   {% endfor %}
 </ul>
 
-{% assign entries_layout = page.entries_layout | default: 'list' %}
-{% assign postsByYear = site.posts | where_exp: "item", "item.hidden != true" | group_by_exp: 'post', 'post.date | date: "%Y"' %}
 {% for year in postsByYear %}
-  <section id="{{ year.name }}" class="taxonomy__section">
-    <h2 class="archive__subtitle">{{ year.name }}</h2>
-    <div class="entries-{{ entries_layout }}">
-      {% for post in year.items %}
-        {% include archive-single.html type=entries_layout %}
+  <section id="{{ year.name }}" class="taxonomy__section year-archive">
+    <h2 class="archive__subtitle">{{ year.name }} <span class="taxonomy__count">{{ year.items | size }}</span></h2>
+
+    <!-- 상위 카테고리별로 묶고 글 많은 순으로 정렬 -->
+    {% assign cat_groups = year.items | group_by_exp: 'post', 'post.categories | first | split: "/" | first | upcase' | sort: 'size' | reverse %}
+
+    {% for group in cat_groups %}
+      {% assign parent = group.name | default: "미분류" %}
+      {% assign cat_icon = site.data.category_icons[parent] | default: site.data.category_icons._default %}
+
+      <!-- 하위 카테고리 이름(대소문자 무시)과 건수 -->
+      {% assign child_keys = "" | split: "" %}
+      {% assign child_names = "" | split: "" %}
+      {% for post in group.items %}
+        {% assign c_parts = post.categories | first | split: "/" %}
+        {% if c_parts[1] %}
+          {% assign ckey = c_parts[1] | upcase %}
+          {% unless child_keys contains ckey %}
+            {% assign child_keys = child_keys | push: ckey %}
+            {% assign child_names = child_names | push: c_parts[1] %}
+          {% endunless %}
+        {% endif %}
       {% endfor %}
-    </div>
+      {% assign child_counts = "" | split: "" %}
+      {% for ckey in child_keys %}
+        {% assign ctotal = 0 %}
+        {% for post in group.items %}
+          {% assign c_parts = post.categories | first | split: "/" %}
+          {% assign pkey = c_parts[1] | upcase %}
+          {% if pkey == ckey %}{% assign ctotal = ctotal | plus: 1 %}{% endif %}
+        {% endfor %}
+        {% assign padded = ctotal | prepend: "0000" | slice: -4, 4 %}
+        {% assign child_entry = padded | append: "|" | append: child_names[forloop.index0] | append: "|" | append: ctotal %}
+        {% assign child_counts = child_counts | push: child_entry %}
+      {% endfor %}
+      {% assign child_counts = child_counts | sort | reverse %}
+
+      <details class="year-cat">
+        <summary class="year-cat__summary">
+          <span class="year-cat__caret" aria-hidden="true"></span>
+          {% if cat_icon %}<i class="year-cat__icon tone-{{ cat_icon.tone | default: 'beige' }} fa-fw {{ cat_icon.icon }}" aria-hidden="true"></i>{% endif %}
+          <span class="year-cat__name">{{ parent }}</span>
+          <span class="year-cat__count">{{ group.size }}</span>
+          {% if child_counts.size > 0 %}
+            <span class="year-cat__children">
+              {% for entry in child_counts %}
+                {% assign info = entry | split: "|" %}
+                <span class="year-cat__child">{{ info[1] }} <b>{{ info[2] }}</b></span>
+              {% endfor %}
+            </span>
+          {% endif %}
+        </summary>
+
+        <ul class="year-cat__posts">
+          {% for post in group.items %}
+            {% assign c_parts = post.categories | first | split: "/" %}
+            <li>
+              <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%m.%d" }}</time>
+              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+              {% if c_parts[1] %}<span class="year-cat__post-child">{{ c_parts[1] }}</span>{% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </details>
+    {% endfor %}
+
     <a href="#page-title" class="back-to-top">{{ site.data.ui-text[site.locale].back_to_top | default: 'Back to Top' }} &uarr;</a>
   </section>
 {% endfor %}
