@@ -1,7 +1,7 @@
 ---
 layout: single
 title:  "16. 25. PowerBI Data"
-categories: Tools/PowerBI
+categories: VISUALIZATION/PowerBI
 tags: [PowerBI]
 ---
 

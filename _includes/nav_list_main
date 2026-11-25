@@ -21,7 +21,8 @@
       <!-- 카테고리 이름에 '/'가 있으면 부모-자식 구조로 처리 -->
       {% if cat_name contains '/' %}
         {% assign cat_parts = cat_name | split: '/' %}
-        {% assign parent = cat_parts[0] %}
+        <!-- 대소문자만 다른 부모 카테고리(DataBase/DATABASE 등)는 하나로 합침 -->
+        {% assign parent = cat_parts[0] | upcase %}
         {% assign child = cat_parts[1] %}
 
         <!-- 부모 카테고리 추가 -->
@@ -34,10 +35,11 @@
         {% assign category_tree = category_tree | push: tree_item %}
       {% else %}
         <!-- '/'가 없으면 부모 카테고리로 -->
-        {% unless parent_categories contains cat_name %}
-          {% assign parent_categories = parent_categories | push: cat_name %}
+        {% assign cat_name_up = cat_name | upcase %}
+        {% unless parent_categories contains cat_name_up %}
+          {% assign parent_categories = parent_categories | push: cat_name_up %}
         {% endunless %}
-        {% assign tree_item = cat_name | append: "||" | append: post_count %}
+        {% assign tree_item = cat_name_up | append: "||" | append: post_count %}
         {% assign category_tree = category_tree | push: tree_item %}
       {% endif %}
     {% endfor %}
@@ -76,16 +78,36 @@
         <ul class="nav__sub-items" id="cat-{{ parent | slugify }}" style="display: none; margin-left: 1em;">
           {% assign has_children = false %}
           {% assign children_list = "" | split: "" %}
+          {% assign child_keys = "" | split: "" %}   <!-- 대소문자 무시한 자식명 키 -->
+          {% assign child_names = "" | split: "" %}  <!-- 처음 나온 표기 그대로의 자식명 -->
 
           {% for tree_item in category_tree %}
             {% assign parts = tree_item | split: "|" %}
             {% if parts[0] == parent and parts[1] != "" %}
               {% assign has_children = true %}
-              <!-- 포스트수 패딩 + 자식명 + 포스트수 -->
-              {% assign padded = parts[2] | prepend: "0000" | slice: -4, 4 %}
-              {% assign child_data = padded | append: "|" | append: parts[1] | append: "|" | append: parts[2] %}
-              {% assign children_list = children_list | push: child_data %}
+              {% assign ckey = parts[1] | upcase %}
+              {% unless child_keys contains ckey %}
+                {% assign child_keys = child_keys | push: ckey %}
+                {% assign child_names = child_names | push: parts[1] %}
+              {% endunless %}
             {% endif %}
+          {% endfor %}
+
+          <!-- 대소문자만 다른 자식 카테고리는 포스트 수를 합쳐서 하나로 -->
+          {% for ckey in child_keys %}
+            {% assign cname = child_names[forloop.index0] %}
+            {% assign ctotal = 0 %}
+            {% for tree_item in category_tree %}
+              {% assign parts = tree_item | split: "|" %}
+              {% assign pkey = parts[1] | upcase %}
+              {% if parts[0] == parent and pkey == ckey %}
+                {% assign ctotal = ctotal | plus: parts[2] %}
+              {% endif %}
+            {% endfor %}
+            <!-- 포스트수 패딩 + 자식명 + 포스트수 -->
+            {% assign padded = ctotal | prepend: "0000" | slice: -4, 4 %}
+            {% assign child_data = padded | append: "|" | append: cname | append: "|" | append: ctotal %}
+            {% assign children_list = children_list | push: child_data %}
           {% endfor %}
 
           <!-- 포스트 수 기준 내림차순 정렬 -->

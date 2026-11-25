@@ -1,7 +1,7 @@
 ---
 layout: single
 title:  "12. PowerBI Workflow"
-categories: Tools/PowerBI
+categories: VISUALIZATION/PowerBI
 tags: [PowerBI]
 ---
 

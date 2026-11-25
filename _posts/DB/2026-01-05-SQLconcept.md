@@ -1,7 +1,7 @@
 ---
 layout: single
 title:  "SQL DB 관련 개념"
-categories: DataBase/SQL
+categories: DATABASE/SQL
 tags: [SQL]
 ---
 

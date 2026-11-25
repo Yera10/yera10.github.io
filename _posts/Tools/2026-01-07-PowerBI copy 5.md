@@ -1,7 +1,7 @@
 ---
 layout: single
 title:  "21. PowerBI 저장소 연결 모드"
-categories: Tools/PowerBI
+categories: VISUALIZATION/PowerBI
 tags: [PowerBI]
 ---
 
