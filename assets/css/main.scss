@@ -7,3 +7,144 @@ search: false
 
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
+
+/* ==========================================================================
+   사이드바 카테고리 트리 (_includes/nav_list_main)
+   문서 사이트처럼 부모 > 자식 > 글 목록을 펼치고 접는 형태
+   ========================================================================== */
+
+.docs-nav {
+  .nav__items {
+    font-size: 1rem;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    margin: 0;
+  }
+
+  .taxonomy__count {
+    margin-inline-start: auto;
+    padding-inline-start: 0.5em;
+    color: $muted-text-color;
+    font-weight: normal;
+    font-size: 0.85em;
+  }
+
+  /* 펼치기/접기 줄 공통: 기본 삼각형 숨기고 회전하는 화살표 사용 */
+  summary {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::before {
+      content: "";
+      flex: none;
+      width: 0.4em;
+      height: 0.4em;
+      margin-inline-end: 0.6em;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      opacity: 0.55;
+      transform: rotate(-45deg);
+      transition: transform 0.15s ease;
+    }
+
+    &:hover {
+      color: $link-color;
+    }
+  }
+
+  details[open] > summary::before {
+    transform: rotate(45deg);
+  }
+
+  .docs-nav__label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+/* 전체 글 수 */
+.docs-nav__total {
+  margin: 0.5rem 0;
+  padding: 0.25rem 0;
+  font-family: $sans-serif-narrow;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-bottom: 1px solid $border-color;
+  display: flex;
+
+  .taxonomy__count {
+    margin-inline-start: 0.4em;
+  }
+}
+
+/* 부모 카테고리 */
+.docs-nav .nav__sub-title {
+  display: flex;
+  margin: 0;
+  padding: 0.45rem 0;
+}
+
+/* 자식 카테고리 */
+.docs-nav__children {
+  padding-inline-start: 0.5em !important;
+  margin-bottom: 0.4em !important;
+}
+
+.docs-nav__child-title {
+  padding: 0.3rem 0;
+  font-size: 0.9em;
+}
+
+/* 글 목록: 왼쪽 세로선으로 트리 구조 표시 */
+.docs-nav__posts {
+  margin: 0.1em 0 0.4em 0.2em !important;
+  border-inline-start: 1px solid $border-color;
+}
+
+.docs-nav .docs-nav__post a {
+  display: block;
+  margin-inline-start: -1px;
+  padding: 0.25em 0.5em 0.25em 0.9em;
+  border-inline-start: 2px solid transparent;
+  font-size: 0.85em;
+  line-height: 1.4;
+  color: $muted-text-color !important;
+  text-decoration: none;
+
+  &:hover {
+    color: $link-color !important;
+    border-inline-start-color: $border-color;
+  }
+
+  /* 지금 보고 있는 글 강조 */
+  &.active {
+    margin-inline-start: -1px;
+    padding-inline: 0.9em 0.5em;
+    color: $text-color !important;
+    font-weight: bold;
+    border-inline-start-color: $primary-color;
+    background: rgba($primary-color, 0.08);
+    border-radius: 0 4px 4px 0;
+  }
+}
+
+/* 부모에 바로 붙은 글(자식 카테고리 없음)도 같은 트리 모양으로 */
+.docs-nav__children > .docs-nav__post {
+  border-inline-start: 1px solid $border-color;
+  margin-inline-start: 0.2em;
+}

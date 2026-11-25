@@ -1,139 +1,148 @@
+{%- comment -%}
+  문서 사이트 스타일 사이드바: 부모 카테고리 > 자식 카테고리 > 글 목록 트리
+  - 지금 보고 있는 글의 카테고리는 서버에서 미리 펼쳐서 렌더링 (data-current)
+  - 사용자가 펼치거나 접은 상태는 assets/js/custom.js 가 localStorage 에 기억
+  - 대소문자만 다른 카테고리(DataBase / DATABASE 등)는 하나로 합침
+  - 카테고리 형식은 "부모" 또는 "부모/자식" (front matter 의 categories)
+{%- endcomment -%}
+
 <!-- sum = 사이트의 모든 포스트 개수 -->
 {% assign sum = site.posts | size %}
 
-<nav class="nav__list">
+<!-- 지금 보고 있는 글의 카테고리 (자동으로 펼칠 경로) -->
+{% assign cur_cat = page.categories | first | default: "" %}
+{% assign cur_parts = cur_cat | split: "/" %}
+{% assign cur_parent = cur_parts[0] | upcase %}
+{% assign cur_child = cur_parts[1] | upcase %}
+
+{% assign parent_categories = "" | split: "" %}   <!-- 부모 카테고리 리스트 (대문자) -->
+{% assign category_tree = "" | split: "" %}       <!-- '부모|자식|포스트수|원본이름' 리스트 -->
+
+<!-- 1. 부모 카테고리, 카테고리 정보 저장 -->
+{% for category in site.categories %}
+  {% assign cat_name = category[0] %}
+  {% assign post_count = category[1].size %}
+  {% assign cat_parts = cat_name | split: '/' %}
+  {% assign parent = cat_parts[0] | upcase %}
+  {% assign child = cat_parts[1] | default: "" %}
+
+  {% unless parent_categories contains parent %}
+    {% assign parent_categories = parent_categories | push: parent %}
+  {% endunless %}
+
+  {% assign tree_item = parent | append: "|" | append: child | append: "|" | append: post_count | append: "|" | append: cat_name %}
+  {% assign category_tree = category_tree | push: tree_item %}
+{% endfor %}
+
+<!-- 2. 부모별 포스트 수 계산 및 정렬 (포스트 많은 순) -->
+{% assign parent_with_count = "" | split: "" %}
+{% for parent in parent_categories %}
+  {% assign parent_total = 0 %}
+  {% for tree_item in category_tree %}
+    {% assign parts = tree_item | split: "|" %}
+    {% if parts[0] == parent %}
+      {% assign parent_total = parent_total | plus: parts[2] %}
+    {% endif %}
+  {% endfor %}
+  {% assign padded_count = parent_total | prepend: "0000" | slice: -4, 4 %}
+  {% assign sort_key = padded_count | append: "|" | append: parent | append: "|" | append: parent_total %}
+  {% assign parent_with_count = parent_with_count | push: sort_key %}
+{% endfor %}
+{% assign sorted_parents_data = parent_with_count | sort | reverse %}
+
+<nav class="nav__list docs-nav">
   <input id="ac-toc" name="accordion-toc" type="checkbox" />
   <label for="ac-toc">{{ site.data.ui-text[site.locale].menu_label }}</label>
-  <ul class="nav__items" id="category_tag_menu">
-    <!--Total Posts-->
-    <li>
-      <span class="nav__sub-title">Total Posts <span class="taxonomy__count">{{ sum }}</span></span>
+  <ul class="nav__items">
+    <li class="docs-nav__total">
+      Total Posts <span class="taxonomy__count">{{ sum }}</span>
     </li>
 
-    {% assign parent_categories = "" | split: "" %}   <!-- 부모 카테고리 리스트 -->
-    {% assign category_tree = "" | split: "" %}   <!-- '부모|자식|포스트수' 리스트 -->
-
-    <!-- 1. 부모 카테고리, 카테고리 정보 저장 -->
-    {% for category in site.categories %}
-      {% assign cat_name = category[0] %}
-      {% assign post_count = category[1].size %}
-
-      <!-- 카테고리 이름에 '/'가 있으면 부모-자식 구조로 처리 -->
-      {% if cat_name contains '/' %}
-        {% assign cat_parts = cat_name | split: '/' %}
-        <!-- 대소문자만 다른 부모 카테고리(DataBase/DATABASE 등)는 하나로 합침 -->
-        {% assign parent = cat_parts[0] | upcase %}
-        {% assign child = cat_parts[1] %}
-
-        <!-- 부모 카테고리 추가 -->
-        {% unless parent_categories contains parent %}
-          {% assign parent_categories = parent_categories | push: parent %}
-        {% endunless %}
-
-        <!-- category_tree에 추가 -->
-        {% assign tree_item = parent | append: "|" | append: child | append: "|" | append: post_count %}
-        {% assign category_tree = category_tree | push: tree_item %}
-      {% else %}
-        <!-- '/'가 없으면 부모 카테고리로 -->
-        {% assign cat_name_up = cat_name | upcase %}
-        {% unless parent_categories contains cat_name_up %}
-          {% assign parent_categories = parent_categories | push: cat_name_up %}
-        {% endunless %}
-        {% assign tree_item = cat_name_up | append: "||" | append: post_count %}
-        {% assign category_tree = category_tree | push: tree_item %}
-      {% endif %}
-    {% endfor %}
-
-    <!-- 2. 부모 포스트 계산 및 정렬-->
-    {% assign parent_with_count = "" | split: "" %}
-    {% for parent in parent_categories %}
-      {% assign parent_total = 0 %}
-      {% for tree_item in category_tree %}
-        {% assign parts = tree_item | split: "|" %}
-        {% if parts[0] == parent %}
-          {% assign parent_total = parent_total | plus: parts[2] %}
-        {% endif %}
-      {% endfor %}
-      {% assign padded_count = parent_total | prepend: "0000" | slice: -4, 4 %}     <!-- 포스트 수 4자리 패딩 -->
-      {% assign sort_key = padded_count | append: "|" | append: parent | append: "|" | append: parent_total %}
-      {% assign parent_with_count = parent_with_count | push: sort_key %}
-    {% endfor %}
-    {% assign sorted_parents_data = parent_with_count | sort | reverse %}   <!-- 포스트 많은 순 정렬 -->
-
-    <!-- 3. 부모 카테고리 별 렌더링 -->
+    <!-- 3. 부모 카테고리별 렌더링 -->
     {% for parent_data in sorted_parents_data %}
       {% assign parent_info = parent_data | split: "|" %}
       {% assign parent = parent_info[1] %}
       {% assign parent_total = parent_info[2] %}
 
-      <!-- 부모 카테고리 출력 -->
+      <!-- 자식 카테고리(대소문자 무시) 목록과 부모에 바로 붙은 원본 카테고리 모으기 -->
+      {% assign child_keys = "" | split: "" %}
+      {% assign child_names = "" | split: "" %}
+      {% assign direct_names = "" | split: "" %}
+      {% for tree_item in category_tree %}
+        {% assign parts = tree_item | split: "|" %}
+        {% if parts[0] == parent %}
+          {% if parts[1] == "" %}
+            {% assign direct_names = direct_names | push: parts[3] %}
+          {% else %}
+            {% assign ckey = parts[1] | upcase %}
+            {% unless child_keys contains ckey %}
+              {% assign child_keys = child_keys | push: ckey %}
+              {% assign child_names = child_names | push: parts[1] %}
+            {% endunless %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+
+      <!-- 자식 카테고리별 포스트 수 합산 후 포스트 많은 순 정렬 -->
+      {% assign children_list = "" | split: "" %}
+      {% for ckey in child_keys %}
+        {% assign cname = child_names[forloop.index0] %}
+        {% assign ctotal = 0 %}
+        {% for tree_item in category_tree %}
+          {% assign parts = tree_item | split: "|" %}
+          {% assign pkey = parts[1] | upcase %}
+          {% if parts[0] == parent and pkey == ckey %}
+            {% assign ctotal = ctotal | plus: parts[2] %}
+          {% endif %}
+        {% endfor %}
+        {% assign padded = ctotal | prepend: "0000" | slice: -4, 4 %}
+        {% assign child_data = padded | append: "|" | append: cname | append: "|" | append: ctotal | append: "|" | append: ckey %}
+        {% assign children_list = children_list | push: child_data %}
+      {% endfor %}
+      {% assign sorted_children = children_list | sort | reverse %}
+
+      {% assign parent_id = parent | slugify | prepend: "nav-" %}
       <li>
-        <div class="nav__sub-title" style="cursor: pointer; user-select: none;">
-          <span onclick="toggleCategory('{{ parent | slugify }}')">
-            <span class="toggle-icon" id="icon-{{ parent | slugify }}">▶</span> {{ parent }} <span class="taxonomy__count">{{ parent_total }}</span>
-          </span>
-        </div>
+        <details class="docs-nav__group" data-nav-id="{{ parent_id }}"{% if parent == cur_parent %} open data-current{% endif %}>
+          <summary class="nav__sub-title">
+            <span class="docs-nav__label">{{ parent }}</span>
+            <span class="taxonomy__count">{{ parent_total }}</span>
+          </summary>
+          <ul class="docs-nav__children">
+            {% for child_data in sorted_children %}
+              {% assign child_info = child_data | split: "|" %}
+              {% assign cname = child_info[1] %}
+              {% assign ctotal = child_info[2] %}
+              {% assign ckey = child_info[3] %}
 
-        <!-- 자식 카테고리 리스트 -->
-        <ul class="nav__sub-items" id="cat-{{ parent | slugify }}" style="display: none; margin-left: 1em;">
-          {% assign has_children = false %}
-          {% assign children_list = "" | split: "" %}
-          {% assign child_keys = "" | split: "" %}   <!-- 대소문자 무시한 자식명 키 -->
-          {% assign child_names = "" | split: "" %}  <!-- 처음 나온 표기 그대로의 자식명 -->
+              <!-- 이 자식 노드에 해당하는 원본 카테고리 이름들 -->
+              {% assign child_orig_names = "" | split: "" %}
+              {% for tree_item in category_tree %}
+                {% assign parts = tree_item | split: "|" %}
+                {% assign pkey = parts[1] | upcase %}
+                {% if parts[0] == parent and pkey == ckey %}
+                  {% assign child_orig_names = child_orig_names | push: parts[3] %}
+                {% endif %}
+              {% endfor %}
 
-          {% for tree_item in category_tree %}
-            {% assign parts = tree_item | split: "|" %}
-            {% if parts[0] == parent and parts[1] != "" %}
-              {% assign has_children = true %}
-              {% assign ckey = parts[1] | upcase %}
-              {% unless child_keys contains ckey %}
-                {% assign child_keys = child_keys | push: ckey %}
-                {% assign child_names = child_names | push: parts[1] %}
-              {% endunless %}
-            {% endif %}
-          {% endfor %}
-
-          <!-- 대소문자만 다른 자식 카테고리는 포스트 수를 합쳐서 하나로 -->
-          {% for ckey in child_keys %}
-            {% assign cname = child_names[forloop.index0] %}
-            {% assign ctotal = 0 %}
-            {% for tree_item in category_tree %}
-              {% assign parts = tree_item | split: "|" %}
-              {% assign pkey = parts[1] | upcase %}
-              {% if parts[0] == parent and pkey == ckey %}
-                {% assign ctotal = ctotal | plus: parts[2] %}
-              {% endif %}
+              {% assign child_id = parent | append: "-" | append: cname | slugify | prepend: "nav-" %}
+              <li>
+                <details class="docs-nav__group docs-nav__group--child" data-nav-id="{{ child_id }}"{% if parent == cur_parent and ckey == cur_child %} open data-current{% endif %}>
+                  <summary class="docs-nav__child-title">
+                    <span class="docs-nav__label">{{ cname }}</span>
+                    <span class="taxonomy__count">{{ ctotal }}</span>
+                  </summary>
+                  <ul class="docs-nav__posts">
+                    {% include nav_list_posts.html names=child_orig_names %}
+                  </ul>
+                </details>
+              </li>
             {% endfor %}
-            <!-- 포스트수 패딩 + 자식명 + 포스트수 -->
-            {% assign padded = ctotal | prepend: "0000" | slice: -4, 4 %}
-            {% assign child_data = padded | append: "|" | append: cname | append: "|" | append: ctotal %}
-            {% assign children_list = children_list | push: child_data %}
-          {% endfor %}
 
-          <!-- 포스트 수 기준 내림차순 정렬 -->
-          {% assign sorted_children = children_list | sort | reverse %}
-
-          <!-- 자식 카테고리 출력 -->
-          {% for child_data in sorted_children %}
-            {% assign child_info = child_data | split: "|" %}
-            {% assign child_name = child_info[1] %}
-            {% assign child_count = child_info[2] %}
-            <li>
-              <a href="/categories/#{{ parent | append: '/' | append: child_name | slugify }}" class="">
-                  {{ child_name }} <span class="taxonomy__count">{{ child_count }}</span>
-              </a>
-            </li>
-          {% endfor %}
-          
-          <!-- 자식 카테고리가 없는 경우 -->
-          {% unless has_children %}
-            <li>
-              <a href="/categories/#{{ parent | slugify }}" class="">
-                All <span class="taxonomy__count">{{ parent_total }}</span>
-              </a>
-            </li>
-          {% endunless %}
-        </ul>
+            <!-- 자식 없이 부모 카테고리에 바로 속한 글 -->
+            {% include nav_list_posts.html names=direct_names %}
+          </ul>
+        </details>
       </li>
     {% endfor %}
   </ul>
