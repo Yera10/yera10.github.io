@@ -1,13 +1,15 @@
 {%- comment -%}
   사이드바 트리의 글 목록
   include.names : 이 노드에 속한 원본 카테고리 이름 배열 (대소문자만 다른 이름 포함)
-  같은 노드 안에서는 오래된 글이 위로 오도록 날짜 오름차순으로 표시
+  제목순(대소문자 무시)으로 정렬해서 표시
 {%- endcomment -%}
+{%- assign node_posts = "" | split: "" -%}
 {%- for orig in include.names -%}
-  {%- assign cat_posts = site.categories[orig] | reverse -%}
-  {%- for p in cat_posts -%}
-    <li class="docs-nav__post">
-      <a href="{{ p.url | relative_url }}"{% if p.url == page.url %} class="active" aria-current="page"{% endif %}>{{ p.title | default: p.slug }}</a>
-    </li>
-  {%- endfor -%}
+  {%- assign node_posts = node_posts | concat: site.categories[orig] -%}
+{%- endfor -%}
+{%- assign node_posts = node_posts | sort_natural: "title" -%}
+{%- for p in node_posts -%}
+  <li class="docs-nav__post">
+    <a href="{{ p.url | relative_url }}"{% if p.url == page.url %} class="active" aria-current="page"{% endif %}>{{ p.title | default: p.slug }}</a>
+  </li>
 {%- endfor -%}

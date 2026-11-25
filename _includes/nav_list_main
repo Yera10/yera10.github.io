@@ -102,9 +102,13 @@
       {% assign sorted_children = children_list | sort | reverse %}
 
       {% assign parent_id = parent | slugify | prepend: "nav-" %}
+      <!-- 카테고리 아이콘 (_data/category_icons.yml) -->
+      {% assign cat_icon = site.data.category_icons[parent] | default: site.data.category_icons._default %}
       <li>
         <details class="docs-nav__group" data-nav-id="{{ parent_id }}"{% if parent == cur_parent %} open data-current{% endif %}>
           <summary class="nav__sub-title">
+            <span class="docs-nav__caret" aria-hidden="true"></span>
+            {% if cat_icon %}<i class="docs-nav__icon fa-fw {{ cat_icon.icon }}" style="color: {{ cat_icon.color }}" aria-hidden="true"></i>{% endif %}
             <span class="docs-nav__label">{{ parent }}</span>
             <span class="taxonomy__count">{{ parent_total }}</span>
           </summary>
@@ -129,6 +133,7 @@
               <li>
                 <details class="docs-nav__group docs-nav__group--child" data-nav-id="{{ child_id }}"{% if parent == cur_parent and ckey == cur_child %} open data-current{% endif %}>
                   <summary class="docs-nav__child-title">
+                    <span class="docs-nav__caret" aria-hidden="true"></span>
                     <span class="docs-nav__label">{{ cname }}</span>
                     <span class="taxonomy__count">{{ ctotal }}</span>
                   </summary>

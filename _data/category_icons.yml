@@ -1,0 +1,45 @@
+# 사이드바 상위 카테고리 아이콘
+# - 키: 카테고리 이름 (대문자로 적기. 한글은 그대로)
+# - icon: Font Awesome 무료 아이콘 클래스 (https://fontawesome.com/search?ic=free 에서 검색)
+# - color: 아이콘 색
+# 여기에 없는 카테고리는 _default 아이콘을 사용
+
+_default:
+  icon: "fa-regular fa-folder"
+  color: "#9a9384"
+
+TOOLS:
+  icon: "fa-solid fa-screwdriver-wrench"
+  color: "#a87b4f"
+
+DATABASE:
+  icon: "fa-solid fa-database"
+  color: "#4f7cac"
+
+DEV:
+  icon: "fa-solid fa-code"
+  color: "#5b8c5a"
+
+VISUALIZATION:
+  icon: "fa-solid fa-chart-column"
+  color: "#c47a3c"
+
+알고리즘:
+  icon: "fa-solid fa-diagram-project"
+  color: "#3f8f8f"
+
+DEEP-LEARNING:
+  icon: "fa-solid fa-brain"
+  color: "#8a63a8"
+
+BLOG:
+  icon: "fa-solid fa-pen-nib"
+  color: "#b85c7a"
+
+CODING:
+  icon: "fa-solid fa-laptop-code"
+  color: "#6b7fa8"
+
+ETC:
+  icon: "fa-solid fa-box-archive"
+  color: "#8a8a8a"

@@ -15,7 +15,7 @@ search: false
 
 .docs-nav {
   .nav__items {
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
 
   ul {
@@ -24,8 +24,11 @@ search: false
     list-style: none;
   }
 
+  /* 테마가 사이드바 li 마다 0.75em 을 걸어서 단계가 깊어질수록 글자가 작아지던 문제 방지 */
   li {
     margin: 0;
+    font-size: inherit;
+    line-height: inherit;
   }
 
   .taxonomy__count {
@@ -36,10 +39,11 @@ search: false
     font-size: 0.85em;
   }
 
-  /* 펼치기/접기 줄 공통: 기본 삼각형 숨기고 회전하는 화살표 사용 */
+  /* 펼치기/접기 줄 공통 */
   summary {
     display: flex;
     align-items: center;
+    gap: 0.45em;
     cursor: pointer;
     list-style: none;
     user-select: none;
@@ -48,26 +52,31 @@ search: false
       display: none;
     }
 
-    &::before {
-      content: "";
-      flex: none;
-      width: 0.4em;
-      height: 0.4em;
-      margin-inline-end: 0.6em;
-      border-right: 2px solid currentColor;
-      border-bottom: 2px solid currentColor;
-      opacity: 0.55;
-      transform: rotate(-45deg);
-      transition: transform 0.15s ease;
-    }
-
     &:hover {
       color: $link-color;
     }
   }
 
-  details[open] > summary::before {
-    transform: rotate(45deg);
+  /* 펼칠 수 있다는 표시: 작은 세모 (펼치면 아래로 회전) */
+  .docs-nav__caret {
+    flex: none;
+    width: 0;
+    height: 0;
+    border-top: 0.3em solid transparent;
+    border-bottom: 0.3em solid transparent;
+    border-inline-start: 0.42em solid currentColor;
+    opacity: 0.6;
+    transition: transform 0.15s ease;
+  }
+
+  details[open] > summary > .docs-nav__caret {
+    transform: rotate(90deg);
+  }
+
+  /* 상위 카테고리 아이콘 */
+  .docs-nav__icon {
+    flex: none;
+    font-size: 0.95em;
   }
 
   .docs-nav__label {
@@ -78,14 +87,14 @@ search: false
 }
 
 /* 전체 글 수 */
-.docs-nav__total {
+.docs-nav .docs-nav__total {
+  display: flex;
   margin: 0.5rem 0;
   padding: 0.25rem 0;
   font-family: $sans-serif-narrow;
   font-weight: bold;
   text-transform: uppercase;
   border-bottom: 1px solid $border-color;
-  display: flex;
 
   .taxonomy__count {
     margin-inline-start: 0.4em;
@@ -97,37 +106,37 @@ search: false
   display: flex;
   margin: 0;
   padding: 0.45rem 0;
+  font-size: 1em;
 }
 
 /* 자식 카테고리 */
-.docs-nav__children {
-  padding-inline-start: 0.5em !important;
-  margin-bottom: 0.4em !important;
+.docs-nav .docs-nav__children {
+  margin: 0 0 0.4em 0.35em;
 }
 
-.docs-nav__child-title {
-  padding: 0.3rem 0;
-  font-size: 0.9em;
+.docs-nav .docs-nav__child-title {
+  padding: 0.3em 0;
+  font-size: 0.95em;
 }
 
 /* 글 목록: 왼쪽 세로선으로 트리 구조 표시 */
-.docs-nav__posts {
-  margin: 0.1em 0 0.4em 0.2em !important;
+.docs-nav .docs-nav__posts {
+  margin: 0.1em 0 0.4em 0.15em;
   border-inline-start: 1px solid $border-color;
 }
 
 .docs-nav .docs-nav__post a {
   display: block;
   margin-inline-start: -1px;
-  padding: 0.25em 0.5em 0.25em 0.9em;
+  padding: 0.3em 0.5em 0.3em 0.9em;
   border-inline-start: 2px solid transparent;
-  font-size: 0.85em;
-  line-height: 1.4;
-  color: $muted-text-color !important;
+  font-size: 0.95em;
+  line-height: 1.45;
+  color: $muted-text-color;
   text-decoration: none;
 
   &:hover {
-    color: $link-color !important;
+    color: $link-color;
     border-inline-start-color: $border-color;
   }
 
@@ -135,7 +144,7 @@ search: false
   &.active {
     margin-inline-start: -1px;
     padding-inline: 0.9em 0.5em;
-    color: $text-color !important;
+    color: $text-color;
     font-weight: bold;
     border-inline-start-color: $primary-color;
     background: rgba($primary-color, 0.08);
@@ -144,7 +153,13 @@ search: false
 }
 
 /* 부모에 바로 붙은 글(자식 카테고리 없음)도 같은 트리 모양으로 */
-.docs-nav__children > .docs-nav__post {
+.docs-nav .docs-nav__children > .docs-nav__post {
+  margin-inline-start: 0.15em;
   border-inline-start: 1px solid $border-color;
-  margin-inline-start: 0.2em;
+}
+
+/* 글 영역만 바꿔 끼우는 동안 살짝 흐리게 (assets/js/custom.js) */
+.docs-nav-loading #main > .page {
+  opacity: 0.5;
+  transition: opacity 0.15s ease;
 }
